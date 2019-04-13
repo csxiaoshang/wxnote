@@ -1,3 +1,4 @@
+
 # Windows
 [Dd]esktop.ini
 Thumbs.db
@@ -12,3 +13,8 @@ $RECYCLE.BIN/
 
 # Node.js
 node_modules/
+
+# Google App Engine generated folder
+appengine-generated/
+app
+
