@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/Page1/Page1",
+    "pages/Page2/Page2",
+    "pages/Page3/Page3",
     "pages/index/index",
     "pages/databaseGuide/databaseGuide"
   ],
