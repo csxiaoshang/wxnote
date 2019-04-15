@@ -1,0 +1,8 @@
+<!--pages/Page3/Page3.wxml-->
+<view class='Title0'>章节笔记显示</view>
+<view wx:for="{{Chapter}}" wx:for-item="item">
+ <view class='ShowTitle'>{{item.title}}</view>
+ <view class='ShowTitle'>{{item.text}}</view>
+</view>
+<button class='SaveButton' type="primary" size="default" open-type="share" hover-class="other-button-hover"> 给大家看看吧 </button>
+<button class='SaveButton' type="default" size="default" bindtap="Return" hover-class="other-button-hover"> 不用啦 </button>
