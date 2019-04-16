@@ -1,4 +1,9 @@
 // pages/Page1/Page1.js
+//获取应用实例
+var app = getApp();
+var time = '';
+const db = wx.cloud.database();
+
 Page({
 
   /**
@@ -26,6 +31,16 @@ Page({
     isShow1 : true
 
   },
+  onLoad:function(options){
+    var _this=this;
+    db.collection('content').get({
+      success:res=>{
+        this.setData({
+          TitleList:res.data
+        })
+      }
+    })
+  },
   chooseimage: function () {
     var that = this;
     wx.chooseImage({
@@ -41,7 +56,7 @@ Page({
   submitimg: function () {
     wx.showLoading({ 'title': '识别中' });//提示框
     var CryptoJS = require('../../lib/crypto-js/crypto-js');//引入CryptoJS模块
-    var now = Math.floor(Date.now() / 1000);//生成时间戳Timestamp
+    var now = Math.floor(Date.now() / 1000);
     var expired = now + 1000;//生成过期时间
     var secret_src = 'a=' + app.globalData.appid + '&b=' + '&k=' + app.globalData.secretid + '&e=' + expired + '&t=' + now + '&r=' + '123' + '&f=';//按照开发文档拼接字符串
     var auth_b = CryptoJS.HmacSHA1(secret_src, app.globalData.secret).concat(CryptoJS.enc.Utf8.parse(secret_src));//完成加密算法
@@ -63,6 +78,10 @@ Page({
         var data = res.data;
         that.display(data);
         console.log(data);
+        console.log(JSON.parse(data).data)
+        db.collection('content').add({
+          data: res.data
+        })
       }
 
     })
