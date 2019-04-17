@@ -38,6 +38,7 @@ Page({
         this.setData({
           TitleList:res.data
         })
+        console.log(res.data);
       }
     })
   },
