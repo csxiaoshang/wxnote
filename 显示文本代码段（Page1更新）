@@ -1,9 +1,0 @@
-<view wx:for="{{TitleList}}" wx:for-item="item">
- <view class='AllIn'>
-  <view class='Title_Text' bindtap="TurnTo">{{item.items[0].itemstring}}</view>
-  
-  <view wx:for="{{item.items}}" wx:for-item="str">
-   <view class ='Title_Text' >{{str.itemstring}}</view>>
-  </view>
-  // 5,6行实现依次输出每行文字的功能
-  // 3行实现输出第一行（标题）的功能。
