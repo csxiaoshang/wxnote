@@ -81,7 +81,7 @@ Page({
         console.log(data);
         console.log(JSON.parse(data).data)
         db.collection('content').add({
-          data: res.data
+          data: JSON.parse(res.data)
         })
       }
 

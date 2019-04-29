@@ -8,10 +8,12 @@
 <i-divider></i-divider>
 
 <view wx:for="{{TitleList}}" wx:for-item="item">
- <view class='AllIn'>
-  <view class='Title_Text' bindtap="TurnTo">{{item.text}}</view>
+ <view class='AllIn'>    
+  <view class='Title_Text' bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
+  
+   
+  </view>
   <button bindtap="ShareTo" wx:if="{{isShow1 == false}}">分享</button>
- </view>
  <i-divider></i-divider>
 </view>
 <i-divider></i-divider>
