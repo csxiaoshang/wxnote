@@ -4,8 +4,7 @@
  <i-tab key="tab2" title="内容分段"></i-tab>
 </i-tabs>
 <view class='Title0'>章节笔记显示</view>
-<view wx:for="{{Chapter}}" wx:for-item="item">
- <textarea class='ShowTitle' auto-height='true' bindtap='Flame' value='{{item.title}}'/>
- <textarea class='ShowTitle' auto-height='true' bindtap='Flame' value='{{item.text}}'/>
+<view wx:for="{{Chapter.data.items}}" wx:for-item="item">
+ <textarea  class='ShowTitle' auto-height='true' bindtap='Flame' value='{{item.itemstring}}'/>
 </view>
 <button class='SaveButton' type="primary" size="default" bindtap="Save" hover-class="other-button-hover"> 单击保存笔记 </button>

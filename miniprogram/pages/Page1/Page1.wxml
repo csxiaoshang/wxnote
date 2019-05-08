@@ -9,7 +9,7 @@
 
 <view wx:for="{{TitleList}}" wx:for-item="item">
  <view class='AllIn'>    
-  <view class='Title_Text' bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
+  <view class='Title_Text' id = "{{item._id}}" bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
   
    
   </view>

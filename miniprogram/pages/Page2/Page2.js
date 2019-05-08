@@ -1,5 +1,10 @@
 // pages/Page2/Page2.js
+
+const db = wx.cloud.database();
+
 Page({
+  itemId: "",
+  item:{},
 
   /**
    * 页面的初始数据
@@ -32,10 +37,13 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-    db.collection('content').get({
+    this.itemId = options.id;
+    db.collection('content').doc(options.id).get({
       success: res => {
+        console.log(res.data)
         this.setData({
           Chapter: res.data
+         
         })
       }
     })
@@ -89,6 +97,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+  
 
   handleChange: function ({ detail }) {
     this.setData({

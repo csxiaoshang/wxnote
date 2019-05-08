@@ -14,6 +14,8 @@ Page({
     resultstring: "",//API返回的结果
     time: "",//用时记录
     current:'tab1',
+    id:"",
+    testData:'这是测试数据！！！',
     TitleList:[
       {
         text:'历史记录1'
@@ -122,9 +124,11 @@ Page({
       });
     }
   },
-  TurnTo:function(){
+  TurnTo:function(event){
+    
+    var id = event.currentTarget.id;
     wx.navigateTo({
-      url: '../Page2/Page2',
+      url: '../Page2/Page2?id='+id,
     })
   },
   ShareTo:function(){
