@@ -19,5 +19,5 @@
 <i-divider></i-divider>
 <view class='Input' wx:if="{{isShow1 == true}}">
  <button type="primary" size="default" bindtap="chooseimage" hover-class="other-button-hover"> 拍照录入 </button>
- <view class='ClickableText' bindtap='submitimg'>识别></view>
+ <view class='ClickableText' bindtap='submitimgMore'>识别></view>
 </view>
