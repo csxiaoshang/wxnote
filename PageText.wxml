@@ -1,0 +1,17 @@
+<!--pages/PageText/PageText.wxml-->
+<i-tabs current="{{ current }}" color="#f759ab" bindchange="handleChange">
+ <i-tab key="tab1" title="高光标注"></i-tab>
+ <i-tab key="tab2" title="内容分段"></i-tab>
+</i-tabs>
+<view wx:if="{{isShow1 == true}}">
+  <view class='Title0'>章节笔记显示</view>
+  <view wx:for="{{Chapter}}" wx:for-item="item">
+   <view wx:if="{{item.Important == true}}">
+    <textarea class='ShowTitle' auto-height='true' id='{{item.id}}' value='{{item.title}}' bindtap ='Important'></textarea>
+   </view>
+   <view wx:else>
+    <textarea class='Important' auto-height='true' id='{{item.id}}' value='{{item.title}}' bindtap ='Important'></textarea>
+   </view>
+  </view>
+</view>
+<button class='SaveButton' type="primary" size="default" bindtap="Save" hover-class="other-button-hover"> 单击保存笔记 </button>
