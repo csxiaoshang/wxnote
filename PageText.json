@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "i-divider": "../../dist/divider/index",
-    "i-tabs": "../../dist/tabs/index",
-    "i-tab": "../../dist/tab/index"
-  }
-}

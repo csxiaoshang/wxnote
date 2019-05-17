@@ -1,0 +1,18 @@
+<!--pages/pageBar/newTxt.wxml-->
+<image style="height: 150px; background-color: #eeeeee;"mode="scaleToFill"src="../../image/background.jpg"></image>
+<i-divider></i-divider>
+<view wx:for="{{TitleList}}" wx:for-item="item">
+  <view class='AllIn'>
+    <view class = 'Head'>
+      <image class='lab' src='../../image/file.png'></image>
+      <view id='{{item._id}}' class='Title_Text' bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
+    </view>
+    <image class='lab' bindtap="shareto" src='../../image/share0.png'></image>
+  </view>
+  <i-divider></i-divider>
+</view>
+<i-divider></i-divider>
+<view class='Input' >
+ <button type="primary" size="default" bindtap="chooseimage" hover-class="other-button-hover"> 拍照录入 </button>
+ <view class='ClickableText' bindtap='submitimg'>识别></view>
+</view>

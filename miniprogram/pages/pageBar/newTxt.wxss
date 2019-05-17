@@ -1,0 +1,34 @@
+.Title_Text{
+  display: flex;
+  color: black;
+  font-size: 18px;
+  width: 80%;
+}
+.lab{
+  width: 24px;
+  height: 24px;
+}
+.AllIn{
+  display: flex;
+  justify-content: space-between
+}
+.Head{
+  width: 300px;
+  display: flex;
+  justify-content: flex-start
+}
+.PictureTo
+{
+  flex: flex;
+  justify-content: flex-end
+}
+.Input{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.ClickableText{
+  display: flex;
+  justify-content: center;
+  color:#05A081;
+  font-size: 20px;
+}

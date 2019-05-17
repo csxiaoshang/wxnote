@@ -1,0 +1,28 @@
+<!--pages/note/noteedit.wxml-->
+<view class='menu'>
+  <image wx:if="{{Title}}" class='menuitem' src='../../image/title1.png' bindtap='titleable'></image>
+  <image wx:else class='menuitem' src='../../image/title.png' bindtap='titleable'></image>
+  <image wx:if="{{Pen}}" class='menuitem' src='../../image/pen1.png' bindtap='penable'></image>
+  <image wx:else class='menuitem' src='../../image/pen.png' bindtap='penable'></image>
+  <image class='menuitem' src='../../image/edit.png' bindtap="editable"></image>
+  <image class='menuitem' src='../../image/save.png' bindtap='save'></image>
+  <image class='menuitem' src='../../image/share1.png' bindtap='shareto'></image>
+</view>
+<view wx:if="{{Edit}}">
+  <view wx:for="{{TitleList.data.items}}" wx:for-item="item">
+    <textarea id='{{item.id}}' class='Editword' value='{{item.itemstring}}' bindblur='change'></textarea>
+  </view>
+</view>
+<view wx:else>
+  <view wx:for="{{TitleList.data.items}}" wx:for-item="item">
+    <view wx:if="{{item.title}}">
+    <view id='{{item.id}}' class='title' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+    <view wx:elif="{{item.important}}">
+    <view id='{{item.id}}' class='important' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+    <view wx:else>
+    <view id='{{item.id}}' class='word' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,30 @@
+/* pages/note/noteedit.wxss */
+.menu{
+  display: flex;
+  justify-content: space-around
+}
+.menuitem
+{
+  height: 20px;
+  width: 20px
+}
+.Editword
+{
+  margin: 10rpx 20rpx 10rpx 20rpx 
+}
+.title
+{
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  font-size: 20px;
+  font-weight: bold
+}
+.word{
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  font-size: 16px;
+  font-weight: normal
+}
+.important
+{
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  background-color: lightyellow
+}

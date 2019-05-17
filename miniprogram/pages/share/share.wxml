@@ -1,0 +1,3 @@
+<!--pages/share/share.wxml-->
+<button class='SaveButton' type="primary" size="default" open-type="share" hover-class="other-button-hover"> 给大家看看吧 </button>
+<button class='SaveButton' type="default" size="default" bindtap="Return" hover-class="other-button-hover"> 不用啦 </button>
