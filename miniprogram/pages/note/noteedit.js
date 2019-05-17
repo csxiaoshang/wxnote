@@ -12,8 +12,31 @@ Page({
     Edit: false,
     Pen: false,
     Title: false,
-    TitleList: [{
-        
+    TitleList: [
+      {
+        itemstring: "我多么想和你见一面",
+        id: 0,
+        important: false,
+        title: true
+      },
+      {
+        itemstring: "说说你最近改变",
+        id: 1,
+        important: false,
+        title: false
+      },
+      {
+        itemstring: "不再去说从前",
+        id: 2,
+        important: true,
+        title: false
+      },
+      {
+        candword: [],
+        coordpoint: { x: [270, 502, 626, 471, 635, 564, 278, 596] },
+        id: 3,
+        important: false,
+        title: false
       }
     ]
   },
@@ -27,13 +50,34 @@ Page({
     console.log(options.id);
     db.collection('content').doc(options.id).get({
       success: res => {
-        console.log(res.data)
         this.setData({
           TitleList: res.data
 
         })
+        for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
+          var important = "TitleList.data.items[" + i + "].important";
+          var title = "TitleList.data.items[" + i + "].title";
+          this.setData({
+            [important]: false,
+            [title]: false,
+          })
+        }
       }
     })
+  
+  },
+
+  save:function(){
+    
+    db.collection('content').doc(this.data.TitleList._id).set({
+      data: this.data.TitleList.data,
+       success(res) {
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+        console.log(res)
+      },
+      fail: console.error
+    })
+    
   },
 
   /**
@@ -47,7 +91,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    
   },
 
   /**

@@ -17,24 +17,38 @@ Page({
     id: "",
     testData: '这是测试数据！！！',
     TitleList: [{
-      text: '历史记录1'
-    },
-    {
-      text: '历史记录2'
-    },
-    {
-      text: '历史记录3'
-    },
-    {
-      text: '历史记录4'
-    },
+        text: '历史记录1'
+      },
+      {
+        text: '历史记录2'
+      },
+      {
+        text: '历史记录3'
+      },
+      {
+        text: '历史记录4'
+      },
     ],
     isShow1: true
 
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     var _this = this;
-    db.collection('content').get({
+    // 调用云函数获取用户openid，用来获取用户自己的笔记信息
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+    db.collection('content').where({
+      _openid: app.globalData.openid
+    }).get({
       success: res => {
         this.setData({
           TitleList: res.data
@@ -42,13 +56,13 @@ Page({
       }
     })
   },
-  chooseimage: function () {
+  chooseimage: function() {
     var that = this;
     wx.chooseImage({
       count: 9, // 默认9 
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有 
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
-      success: function (res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
+      success: function(res) { // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
         that.setData({
           tempFilePaths: res.tempFilePaths
         }); //保存临时文件地址
@@ -56,7 +70,7 @@ Page({
     })
   },
 
-  submitimg: function () {
+  submitimg: function() {
     wx.showLoading({
       'title': '识别中'
     }); //提示框
@@ -78,7 +92,7 @@ Page({
       formData: {
         'appid': app.globalData.appid
       },
-      success: function (res) {
+      success: function(res) {
         wx.hideLoading();
         console.log(res.data);
         console.log(JSON.parse(res.data).data)
@@ -89,7 +103,8 @@ Page({
 
     })
   },
-  submitimgMore: function () {
+  //识别多张图片函数
+  submitimgMore: function() {
     wx.showLoading({
       'title': '识别中'
     }); //提示框
@@ -119,7 +134,7 @@ Page({
         formData: {
           'appid': app.globalData.appid
         },
-        success: function (res) {
+        success: function(res) {
           wx.hideLoading();
           var jsData = JSON.parse(res.data);
           console.log(i);
@@ -144,6 +159,7 @@ Page({
     //   data: JSON.parse(res.data)
     // })
   },
+  //未使用
   display(data) {
     var result = JSON.parse(data);
     if (result.code != 0) //非正常情况
@@ -168,8 +184,8 @@ Page({
       });
     }
   },
-
-  handleChange: function ({
+//未使用
+  handleChange: function({
     detail
   }) {
     this.setData({
@@ -188,14 +204,14 @@ Page({
       });
     }
   },
-  TurnTo:function(event){
+  TurnTo: function(event) {
     var id = event.currentTarget.id;
     console.log(event);
     wx.navigateTo({
       url: '../note/noteedit?id=' + id,
     })
   },
-  shareto:function(){
+  shareto: function() {
     wx.navigateTo({
       url: "../share/share",
     })

@@ -9,8 +9,10 @@
 		"newFeature": true
 	},
 	"appid": "wx7d6a202fe6163a39",
-	"projectname": "demo",
+	"projectname": "wxnote",
 	"libVersion": "2.2.5",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -1,11 +1,14 @@
 <!--pages/pageBar/history.wxml-->
+
+<i-divider></i-divider>
 <view wx:for="{{TitleList}}" wx:for-item="item">
   <view class='AllIn'>
     <view class = 'Head'>
       <image class='lab' src='../../image/file.png'></image>
-      <view class='Title_Text' bindtap="TurnTo">{{item.items[0].itemstring}}</view>
+      <view id='{{item._id}}' class='Title_Text' bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
     </view>
     <image class='lab' bindtap="shareto" src='../../image/share0.png'></image>
   </view>
   <i-divider></i-divider>
 </view>
+<i-divider></i-divider>
