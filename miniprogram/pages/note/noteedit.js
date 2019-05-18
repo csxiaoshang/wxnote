@@ -57,11 +57,15 @@ Page({
         for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
           var important = "TitleList.data.items[" + i + "].important";
           var title = "TitleList.data.items[" + i + "].title";
+          //index 用来标识每句话id
+          var index="TitleList.data.items["+i+"].index";
           this.setData({
             [important]: false,
             [title]: false,
+            [index]:i
           })
         }
+        console.log(this.data.TitleList);
       }
     })
   
@@ -142,68 +146,79 @@ Page({
       TitleList: update
     })
   },
-  editable: function() {
+  editable: function () {
     var k = this.data.Edit
     if (k == false) {
       this.setData({
         Edit: true
       });
-    } else {
+    }
+    else {
       this.setData({
         Edit: false
       });
     }
   },
-  penable: function() {
+  //标识是否为划重点状态
+  penable: function () {
     var k = this.data.Pen
     if (k == false) {
       this.setData({
         Pen: true
       });
-    } else {
+    }
+    else {
       this.setData({
         Pen: false
       });
     }
   },
-  titleable: function() {
+  //标识是否为画标题状态
+  titleable: function () {
     var k = this.data.Title
     if (k == false) {
       this.setData({
         Title: true
       });
-    } else {
+    }
+    else {
       this.setData({
         Title: false
       });
     }
   },
-  draw: function(e) {
+  //执行函数
+  draw: function (e) {
     var P = this.data.Pen
     var T = this.data.Title
     var num = e.currentTarget.id
     if (T == true) {
       var update = this.data.TitleList
-      for (let i in update) {
+      for (let i in update[0].data[0].items) {
         if (i == num) {
-          if (update[i].title == true) {
-            update[i].title = false
-          } else {
-            update[i].title = true
+          console.log(i)
+          console.log(update[0].data[0])
+          if (update[0].data[0].items[i].title == true) {
+            update[0].data[0].items[i].title = false
+          }
+          else {
+            update[0].data[0].items[i].title = true
           }
         }
       }
       this.setData({
         TitleList: update
       })
-    } else if (P == true) {
+    }
+    else if (P == true) {
       var update = this.data.TitleList
-      for (let i in update) {
+      for (let i in update[0].data[0].items) {
         if (i == num) {
-          if (update[i].important == true) {
-            update[i].important = false
-          } else {
-            update[i].important = true
+          if (update[0].data[0].items[i].important == true) {
+            update[0].data[0].items[i].important = false
+          }
+          else {
+            update[0].data[0].items[i].important = true
           }
         }
       }
