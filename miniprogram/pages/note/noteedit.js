@@ -1,6 +1,7 @@
 // pages/note/noteedit.js
 
 const db = wx.cloud.database();
+const { $Toast } = require('../../dist/base/index');
 Page({
   itemId: "",
   item: {},
@@ -54,17 +55,22 @@ Page({
           TitleList: res.data
 
         })
+      if(this.data.TitleList.identification==null){
         for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
           var important = "TitleList.data.items[" + i + "].important";
           var title = "TitleList.data.items[" + i + "].title";
           //index 用来标识每句话id
-          var index="TitleList.data.items["+i+"].index";
+          var index = "TitleList.data.items[" + i + "].index";
+          var identification = "TitleList.identification";
           this.setData({
             [important]: false,
             [title]: false,
-            [index]:i
+            [index]: i,
+            [identification]: false
           })
         }
+      }
+      
         console.log(this.data.TitleList);
       }
     })
@@ -74,14 +80,23 @@ Page({
   save:function(){
     
     db.collection('content').doc(this.data.TitleList._id).set({
-      data: this.data.TitleList.data,
+      data: {
+        data:this.data.TitleList.data,
+      code:this.data.TitleList.code,
+        message: this.data.TitleList.message,
+        identification:true
+
+      },
        success(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res)
       },
       fail: console.error
     })
-    
+    $Toast({
+      content: '储存成功',
+      type: 'success'
+    });
   },
 
   /**
@@ -132,13 +147,15 @@ Page({
   onShareAppMessage: function() {
 
   },
+  //修改文本
   change: function(e) {
+    console.log(e)
     var n = e.currentTarget.id
     var update = this.data.TitleList
-    for (let i in update) {
+    for (let i in update.data.items) {
       if (i == n) {
-        console.log(update[i])
-        update[i].itemstring = e.detail.value
+        console.log(update.data.items[i])
+        update.data.items[i].itemstring = e.detail.value
       }
     }
 
@@ -194,15 +211,15 @@ Page({
     var num = e.currentTarget.id
     if (T == true) {
       var update = this.data.TitleList
-      for (let i in update[0].data[0].items) {
+      for (let i in update.data.items) {
         if (i == num) {
           console.log(i)
-          console.log(update[0].data[0])
-          if (update[0].data[0].items[i].title == true) {
-            update[0].data[0].items[i].title = false
+          console.log(update.data)
+          if (update.data.items[i].title == true) {
+            update.data.items[i].title = false
           }
           else {
-            update[0].data[0].items[i].title = true
+            update.data.items[i].title = true
           }
         }
       }
@@ -212,13 +229,13 @@ Page({
     }
     else if (P == true) {
       var update = this.data.TitleList
-      for (let i in update[0].data[0].items) {
+      for (let i in update.data.items) {
         if (i == num) {
-          if (update[0].data[0].items[i].important == true) {
-            update[0].data[0].items[i].important = false
+          if (update.data.items[i].important == true) {
+            update.data.items[i].important = false
           }
           else {
-            update[0].data[0].items[i].important = true
+            update.data.items[i].important = true
           }
         }
       }

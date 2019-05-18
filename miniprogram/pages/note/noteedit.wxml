@@ -1,4 +1,5 @@
 <!--pages/note/noteedit.wxml-->
+<i-toast id="toast" />
 <view class='menu'>
   <image wx:if="{{Title}}" class='menuitem' src='../../image/title1.png' bindtap='titleable'></image>
   <image wx:else class='menuitem' src='../../image/title.png' bindtap='titleable'></image>
