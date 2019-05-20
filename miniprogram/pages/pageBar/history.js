@@ -56,6 +56,23 @@ Page({
       }
     })
   },
+  /**
+* 生命周期函数--监听页面显示
+*/
+  onShow: function () {
+    this.onLoad()
+  },
+  /**
+ * 下拉刷新页面
+ */
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading()
+    this.onLoad()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+      wx.hideNavigationBarLoading()
+    }, 1500)
+  },
   chooseimage: function () {
     var that = this;
     wx.chooseImage({

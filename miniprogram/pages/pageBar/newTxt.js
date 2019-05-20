@@ -56,6 +56,23 @@ Page({
       }
     })
   },
+  /**
+ * 生命周期函数--监听页面显示
+ */
+  onShow: function () {
+    this.onLoad()
+  },
+  /**
+   * 下拉刷新页面
+   */
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading()
+    this.onLoad()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+      wx.hideNavigationBarLoading()
+    }, 1500)
+  },
   chooseimage: function() {
     var that = this;
     wx.chooseImage({
@@ -76,7 +93,7 @@ Page({
     }); //提示框
     var CryptoJS = require('../../lib/crypto-js/crypto-js'); //引入CryptoJS模块
     var now = Math.floor(Date.now() / 1000);
-    var expired = now + 1000; //生成过期时间
+    var expired = now + 10000; //生成过期时间
     var secret_src = 'a=' + app.globalData.appid + '&b=' + '&k=' + app.globalData.secretid + '&e=' + expired + '&t=' + now + '&r=' + '123' + '&f='; //按照开发文档拼接字符串
     var auth_b = CryptoJS.HmacSHA1(secret_src, app.globalData.secret).concat(CryptoJS.enc.Utf8.parse(secret_src)); //完成加密算法
     var auth = auth_b.toString(CryptoJS.enc.Base64); //按要求获取base64字符串
@@ -99,6 +116,7 @@ Page({
         db.collection('content').add({
           data: JSON.parse(res.data)
         })
+        that.onLoad()
       }
 
     })
@@ -110,7 +128,7 @@ Page({
     }); //提示框
     var CryptoJS = require('../../lib/crypto-js/crypto-js'); //引入CryptoJS模块
     var now = Math.floor(Date.now() / 1000);
-    var expired = now + 1000; //生成过期时间
+    var expired = now + 10000; //生成过期时间
     var secret_src = 'a=' + app.globalData.appid + '&b=' + '&k=' + app.globalData.secretid + '&e=' + expired + '&t=' + now + '&r=' + '123' + '&f='; //按照开发文档拼接字符串
     var auth_b = CryptoJS.HmacSHA1(secret_src, app.globalData.secret).concat(CryptoJS.enc.Utf8.parse(secret_src)); //完成加密算法
     var auth = auth_b.toString(CryptoJS.enc.Base64); //按要求获取base64字符串
@@ -148,6 +166,7 @@ Page({
             db.collection('content').add({
               data: result
             })
+            this.onLoad()
           }
         }
 
