@@ -1,18 +1,90 @@
-// pages/share/share.js
+// pages/note/noteedit.js
+
+const db = wx.cloud.database();
+const { $Toast } = require('../../dist/base/index');
 Page({
+  itemId: "",
+  item: {},
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    Edit: false,
+    Pen: false,
+    Title: false,
+    TitleList: [
+      {
+        itemstring: "我多么想和你见一面",
+        id: 0,
+        important: false,
+        title: true
+      },
+      {
+        itemstring: "说说你最近改变",
+        id: 1,
+        important: false,
+        title: false
+      },
+      {
+        itemstring: "不再去说从前",
+        id: 2,
+        important: true,
+        title: false
+      },
+      {
+        candword: [],
+        coordpoint: { x: [270, 502, 626, 471, 635, 564, 278, 596] },
+        id: 3,
+        important: false,
+        title: false
+      }
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var _this = this;
+    this.setData({
+      TitleList : JSON.parse(options.data)
+    })
+   // this.data.TitleList = JSON.parse(options.data);
+    console.log("用户TitleList"+this.data.TitleList._id);
+        if (this.data.TitleList.identification == null) {
+          for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
+            var important = "TitleList.data.items[" + i + "].important";
+            var title = "TitleList.data.items[" + i + "].title";
+            //index 用来标识每句话id
+            var index = "TitleList.data.items[" + i + "].index";
+            var identification = "TitleList.identification";
+            this.setData({
+              [important]: false,
+              [title]: false,
+              [index]: i,
+              [identification]: false
+            })
+          }
+        }
 
+  },
+
+  save: function () {
+    db.collection('content').add({
+
+    data: { data: this.data.TitleList.data,
+         code: this.data.TitleList.code,
+         message: this.data.TitleList.message,
+         identification: true
+    
+      }
+    }
+)
+    $Toast({
+      content: '储存成功',
+      type: 'success'
+    });
   },
 
   /**
@@ -26,7 +98,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.onLoad()
   },
 
   /**
@@ -63,9 +135,106 @@ Page({
   onShareAppMessage: function () {
 
   },
-  Return: function () {
+  //修改文本
+  change: function (e) {
+    console.log(e)
+    var n = e.currentTarget.id
+    var update = this.data.TitleList
+    for (let i in update.data.items) {
+      if (i == n) {
+        console.log(update.data.items[i])
+        update.data.items[i].itemstring = e.detail.value
+      }
+    }
+
+    this.setData({
+      TitleList: update
+    })
+  },
+  editable: function () {
+    var k = this.data.Edit
+    if (k == false) {
+      this.setData({
+        Edit: true
+      });
+    }
+    else {
+      this.setData({
+        Edit: false
+      });
+    }
+  },
+  //标识是否为划重点状态
+  penable: function () {
+    var k = this.data.Pen
+    if (k == false) {
+      this.setData({
+        Pen: true
+      });
+    }
+    else {
+      this.setData({
+        Pen: false
+      });
+    }
+  },
+  //标识是否为画标题状态
+  titleable: function () {
+    var k = this.data.Title
+    if (k == false) {
+      this.setData({
+        Title: true
+      });
+    }
+    else {
+      this.setData({
+        Title: false
+      });
+    }
+  },
+  //执行函数
+  draw: function (e) {
+    var P = this.data.Pen
+    var T = this.data.Title
+    var num = e.currentTarget.id
+    if (T == true) {
+      var update = this.data.TitleList
+      for (let i in update.data.items) {
+        if (i == num) {
+          console.log(i)
+          console.log(update.data)
+          if (update.data.items[i].title == true) {
+            update.data.items[i].title = false
+          }
+          else {
+            update.data.items[i].title = true
+          }
+        }
+      }
+      this.setData({
+        TitleList: update
+      })
+    }
+    else if (P == true) {
+      var update = this.data.TitleList
+      for (let i in update.data.items) {
+        if (i == num) {
+          if (update.data.items[i].important == true) {
+            update.data.items[i].important = false
+          }
+          else {
+            update.data.items[i].important = true
+          }
+        }
+      }
+      this.setData({
+        TitleList: update
+      })
+    }
+  },
+  shareto: function () {
     wx.navigateTo({
-      url: "pages/pageBar/newTxt",
+      url: "../share/share",
     })
   }
 })

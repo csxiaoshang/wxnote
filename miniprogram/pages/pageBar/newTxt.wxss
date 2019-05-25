@@ -20,9 +20,10 @@
 .PictureTo
 {
   flex: flex;
-  justify-content: flex-end
+  justify-content: flex-end;
 }
 .Input{
+  height: 100px;
   margin-left: 50px;
   margin-right: 50px;
 }
@@ -30,5 +31,5 @@
   display: flex;
   justify-content: center;
   color:#05A081;
-  font-size: 20px;
+  font-size: 15px;
 }

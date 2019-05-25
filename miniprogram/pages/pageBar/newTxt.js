@@ -225,14 +225,27 @@ Page({
   },
   TurnTo: function(event) {
     var id = event.currentTarget.id;
+    console.log("跳转用户id" + id);
     console.log(event);
     wx.navigateTo({
       url: '../note/noteedit?id=' + id,
     })
   },
-  shareto: function() {
+  shareto: function(event) {
+    var id = event.currentTarget.id;
+    console.log("id" + id);
+    var n = event.currentTarget.id
+    var update = this.data.TitleList
+    for (let i in update) {
+      if (update[i]._id == n) {
+        this.setData({
+          testData: update[i]
+        })
+      }
+    }
+    console.log("testData"+this.data.testData.message);
     wx.navigateTo({
-      url: "../share/share",
+      url: '../share/share?data=' + JSON.stringify(this.data.testData),
     })
   }
 })

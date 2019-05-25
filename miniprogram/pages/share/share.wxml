@@ -1,3 +1,34 @@
-<!--pages/share/share.wxml-->
+<!--pages/note/noteedit.wxml-->
+<i-toast id="toast" />
+<view class='menu'>
+  <image wx:if="{{Title}}" class='menuitem' src='../../image/title1.png' bindtap='titleable'></image>
+  <image wx:else class='menuitem' src='../../image/title.png' bindtap='titleable'></image>
+  <image wx:if="{{Pen}}" class='menuitem' src='../../image/pen1.png' bindtap='penable'></image>
+  <image wx:else class='menuitem' src='../../image/pen.png' bindtap='penable'></image>
+  <image class='menuitem' src='../../image/edit.png' bindtap="editable"></image>
+  <image class='menuitem' src='../../image/save.png' bindtap='save'></image>
+  <!-- <image id='{{itemId}}' class='menuitem' src='../../image/share1.png' bindtap='shareto'></image> -->
+</view>
+<view wx:if="{{Edit}}">
+  <view wx:for="{{TitleList.data.items}}" wx:for-item="item">
+    <textarea id='{{item.index}}' class='Editword' value='{{item.itemstring}}' bindblur='change'></textarea>
+  </view>
+</view>
+<view wx:else>
+  <view wx:for="{{TitleList.data.items}}" wx:for-item="item">
+    <view wx:if="{{item.title}}">
+      <view id='{{item.index}}' class='title' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+    <view wx:elif="{{item.important}}">
+      <view id='{{item.index}}' class='important' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+    <view wx:else>
+      <view id='{{item.index}}' class='word' bindtap='draw'>{{item.itemstring}}</view>
+    </view>
+  </view>
+</view>
+
+
+
 <button class='SaveButton' type="primary" size="default" open-type="share" hover-class="other-button-hover"> 给大家看看吧 </button>
 <button class='SaveButton' type="default" size="default" bindtap="Return" hover-class="other-button-hover"> 不用啦 </button>

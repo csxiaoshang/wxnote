@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+        "i-toast": "../../dist/toast/index",
+    "i-divider": "../../dist/divider/index"
+  }
 }

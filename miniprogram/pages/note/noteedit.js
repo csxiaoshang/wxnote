@@ -244,9 +244,10 @@ Page({
       })
     }
   },
-  shareto: function() {
+  shareto: function(event) {
+    var id = event.currentTarget.id;
     wx.navigateTo({
-      url: "../share/share",
+      url: '../share/share?id=' + id,
     })
   }
 })
