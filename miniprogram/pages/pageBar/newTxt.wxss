@@ -1,3 +1,13 @@
+.BackPicture{
+  display: flex;
+  justify-content: center;
+  width:100%;
+  height:100%
+}
+TitlePicture{
+  width:100%;
+  height:100%
+}
 .Title_Text{
   display: flex;
   color: black;
@@ -10,7 +20,9 @@
 }
 .AllIn{
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 .Head{
   width: 300px;

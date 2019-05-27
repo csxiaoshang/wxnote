@@ -1,5 +1,8 @@
 <!--pages/pageBar/newTxt.wxml-->
-<image style="height: 150px; background-color: #eeeeee;"mode="scaleToFill"src="../../image/background.jpg"></image>
+<view class='BackPicture'>
+<!-- <image style='height:150px' mode="widthFix" class='TitlePicture' src="../../image/background.jpg"></image> -->
+ <image src="{{image}}"></image>
+</view>
 <i-divider></i-divider>
 <view wx:for="{{TitleList}}" wx:for-item="item">
   <view class='AllIn'>
@@ -11,7 +14,6 @@
   </view>
   <i-divider></i-divider>
 </view>
-<i-divider></i-divider>
 <view class='Input' >
  <button type="primary" size="default" bindtap="chooseimage" hover-class="other-button-hover"> 拍照录入 </button>
  <view class='ClickableText' bindtap='submitimg'>识别></view>

@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    image:"",
     tempFilePaths: "", //wx.chooseImage接口返回的临时地址
     resultstring: "", //API返回的结果
     time: "", //用时记录
@@ -46,12 +47,38 @@ Page({
         console.error('[云函数] [login] 调用失败', err)
       }
     })
+    //var scene = decodeURIComponent(options.scene)
+    //console.log("scene"+scene)
+    wx.cloud.callFunction({
+      name:'code',
+      data:{
+      },
+      success:res=>{
+        console.log('调用小程序码云函数' + JSON.stringify(res.result));
+        console.log('调用小程序码云函数' + res.result.buffer);
+        this.setData({
+          image: "data:image/png;base64," + wx.arrayBufferToBase64(res.result.buffer)
+        })
+      }
+    })
     db.collection('content').where({
       _openid: app.globalData.openid
     }).get({
       success: res => {
+        var tem=new Array();
+        var temCount=res.data.length-3;
+        var length = res.data.length;
+        if(length<3){
+          temCount=length;
+        }
+        var num=0;
+        for(var i=temCount;i<length;i++){
+          console.log("循" + i);
+          tem[i-temCount]=res.data[i];
+            
+        }
         this.setData({
-          TitleList: res.data
+          TitleList: tem
         })
       }
     })
