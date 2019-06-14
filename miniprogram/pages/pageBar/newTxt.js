@@ -40,7 +40,6 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
       },
       fail: err => {
@@ -54,8 +53,6 @@ Page({
       data:{
       },
       success:res=>{
-        console.log('调用小程序码云函数' + JSON.stringify(res.result));
-        console.log('调用小程序码云函数' + res.result.buffer);
         this.setData({
           image: "data:image/png;base64," + wx.arrayBufferToBase64(res.result.buffer)
         })
@@ -73,7 +70,6 @@ Page({
         }
         var num=0;
         for(var i=temCount;i<length;i++){
-          console.log("循" + i);
           tem[i-temCount]=res.data[i];
             
         }
@@ -138,8 +134,6 @@ Page({
       },
       success: function(res) {
         wx.hideLoading();
-        console.log(res.data);
-        console.log(JSON.parse(res.data).data)
         db.collection('content').add({
           data: JSON.parse(res.data)
         })
@@ -168,7 +162,6 @@ Page({
     var arrayTem = new Array();
     var currentRecord = 0;
     for (var i = 0; i < count; i++) {
-      console.log("循环" + i);
       wx.uploadFile({
         url: 'https://recognition.image.myqcloud.com/ocr/handwriting',
         filePath: this.data.tempFilePaths[i],
@@ -182,7 +175,6 @@ Page({
         success: function(res) {
           wx.hideLoading();
           var jsData = JSON.parse(res.data);
-          console.log(i);
           result = JSON.parse(res.data);
           // array = res.data.items;
           // array.concat(res.data.items)
@@ -198,7 +190,6 @@ Page({
         }
 
       })
-      console.log("结束api调用");
     }
 
     // db.collection('content').add({
@@ -252,8 +243,6 @@ Page({
   },
   TurnTo: function(event) {
     var id = event.currentTarget.id;
-    console.log("跳转用户id" + id);
-    console.log(event);
     wx.navigateTo({
       url: '../note/noteedit?id=' + id,
     })
@@ -270,7 +259,6 @@ Page({
         })
       }
     }
-    console.log("testData"+this.data.testData.message);
     wx.navigateTo({
       url: '../share/share?data=' + JSON.stringify(this.data.testData),
     })

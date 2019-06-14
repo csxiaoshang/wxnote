@@ -1,13 +1,17 @@
 <!--pages/pageBar/history.wxml-->
-
-<i-divider></i-divider>
+<view class="userinfo">
+<view class="userinfo-avatar">
+<open-data class = 'main' type="userAvatarUrl"></open-data>
+</view>
+</view>
+<open-data class = 'name' type="userNickName"></open-data>
 <view wx:for="{{TitleList}}" wx:for-item="item">
   <view class='AllIn'>
     <view class = 'Head'>
       <image class='lab' src='../../image/file.png'></image>
       <view id='{{item._id}}' class='Title_Text' bindtap="TurnTo">{{item.data.items[0].itemstring}}</view>
     </view>
-    <image class='lab' bindtap="shareto" src='../../image/share0.png'></image>
+    <image id='{{item._id}}' class='lab' bindtap="shareto" src='../../image/share0.png'></image>
   </view>
   <i-divider></i-divider>
 </view>

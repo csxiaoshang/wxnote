@@ -1,7 +1,7 @@
 <!--pages/pageBar/newTxt.wxml-->
 <view class='BackPicture'>
-<!-- <image style='height:150px' mode="widthFix" class='TitlePicture' src="../../image/background.jpg"></image> -->
- <image src="{{image}}"></image>
+<image style='height:150px' mode="widthFix" class='TitlePicture' src="../../image/background.jpg"></image>
+ <!-- <image src="{{image}}"></image> -->
 </view>
 <i-divider></i-divider>
 <view wx:for="{{TitleList}}" wx:for-item="item">

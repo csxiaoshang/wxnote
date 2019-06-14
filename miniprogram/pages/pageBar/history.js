@@ -33,6 +33,31 @@ Page({
 
   },
   onLoad: function (options) {
+
+    // 查看是否授权
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              console.log(res.userInfo)
+            }
+          })
+        }
+      }
+    });
+    wx.getUserInfo({
+      success: function (res) {
+        var userInfo = res.userInfo
+        var nickName = userInfo.nickName
+        var avatarUrl = userInfo.avatarUrl
+        var gender = userInfo.gender //性别 0：未知、1：男、2：女
+        var province = userInfo.province
+        var city = userInfo.city
+        var country = userInfo.country
+      }
+    })
     var _this = this;
     // 调用云函数获取用户openid，用来获取用户自己的笔记信息
     wx.cloud.callFunction({
@@ -228,9 +253,20 @@ Page({
       url: '../note/noteedit?id=' + id,
     })
   },
-  shareto: function () {
+  shareto: function (event) {
+    var id = event.currentTarget.id;
+    console.log("id" + id);
+    var n = event.currentTarget.id
+    var update = this.data.TitleList
+    for (let i in update) {
+      if (update[i]._id == n) {
+        this.setData({
+          testData: update[i]
+        })
+      }
+    }
     wx.navigateTo({
-      url: "../share/share",
+      url: '../share/share?data=' + JSON.stringify(this.data.testData),
     })
   }
 })
