@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    image:"",
+    image: "",
     tempFilePaths: "", //wx.chooseImage接口返回的临时地址
     resultstring: "", //API返回的结果
     time: "", //用时记录
@@ -49,29 +49,32 @@ Page({
     //var scene = decodeURIComponent(options.scene)
     //console.log("scene"+scene)
     wx.cloud.callFunction({
-      name:'code',
-      data:{
-      },
-      success:res=>{
+      name: 'code',
+      data: {},
+      success: res => {
         this.setData({
           image: "data:image/png;base64," + wx.arrayBufferToBase64(res.result.buffer)
         })
       }
     })
+
+    /**
+     * 获取用户数据库中识别的笔记 显示时间戳最新的3个笔记
+     */
     db.collection('content').where({
       _openid: app.globalData.openid
     }).get({
       success: res => {
-        var tem=new Array();
-        var temCount=res.data.length-3;
+        var tem = new Array();
+        var temCount = res.data.length - 3;
         var length = res.data.length;
-        if(length<3){
-          temCount=length;
+        if (length < 3) {
+          temCount = length;
         }
-        var num=0;
-        for(var i=temCount;i<length;i++){
-          tem[i-temCount]=res.data[i];
-            
+        var num = 0;
+        for (var i = temCount; i < length; i++) {
+          tem[i - temCount] = res.data[i];
+
         }
         this.setData({
           TitleList: tem
@@ -80,9 +83,9 @@ Page({
     })
   },
   /**
- * 生命周期函数--监听页面显示
- */
-  onShow: function () {
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
     this.onLoad()
   },
   /**
@@ -96,6 +99,9 @@ Page({
       wx.hideNavigationBarLoading()
     }, 1500)
   },
+  /**
+   * 选择识别的图片 调用api保存选取图片地址
+   */
   chooseimage: function() {
     var that = this;
     wx.chooseImage({
@@ -110,6 +116,9 @@ Page({
     })
   },
 
+  /**
+   * 识别图片 并将识别的数据保存到云数据库中
+   */
   submitimg: function() {
     wx.showLoading({
       'title': '识别中'
@@ -191,10 +200,6 @@ Page({
 
       })
     }
-
-    // db.collection('content').add({
-    //   data: JSON.parse(res.data)
-    // })
   },
   //未使用
   display(data) {
@@ -221,7 +226,7 @@ Page({
       });
     }
   },
-//未使用
+  //未使用
   handleChange: function({
     detail
   }) {
@@ -241,12 +246,18 @@ Page({
       });
     }
   },
+  /**
+   * 跳转到编辑页面 将当前栏目（已识别的笔记）id传输到编辑页面
+   */
   TurnTo: function(event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
       url: '../note/noteedit?id=' + id,
     })
   },
+  /**
+   * 跳转到分享页面 毕竟栏目显示数据传输到分享页面
+   */
   shareto: function(event) {
     var id = event.currentTarget.id;
     console.log("id" + id);

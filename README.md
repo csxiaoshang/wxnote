@@ -9,7 +9,12 @@
      secretid: "",
      secret: ""
       }
- 
+
+## 基本说明
+
+页面为4个： "pages/pageBar/newTxt"为主页面，点击相应栏目跳转到"pages/note/noteedit"编辑页面,点击栏目右侧分享按钮跳转"pages/share/share"分享页面；点击底部"我的"，跳转"pages/pageBar/history"个人页面
+
+
 ## 主界面
 
 ![未能成功显示首页](photo/index.png)

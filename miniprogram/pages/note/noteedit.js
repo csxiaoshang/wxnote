@@ -1,7 +1,9 @@
 // pages/note/noteedit.js
 
 const db = wx.cloud.database();
-const { $Toast } = require('../../dist/base/index');
+const {
+  $Toast
+} = require('../../dist/base/index');
 Page({
   itemId: "",
   item: {},
@@ -13,8 +15,7 @@ Page({
     Edit: false,
     Pen: false,
     Title: false,
-    TitleList: [
-      {
+    TitleList: [{
         itemstring: "我多么想和你见一面",
         id: 0,
         important: false,
@@ -34,7 +35,9 @@ Page({
       },
       {
         candword: [],
-        coordpoint: { x: [270, 502, 626, 471, 635, 564, 278, 596] },
+        coordpoint: {
+          x: [270, 502, 626, 471, 635, 564, 278, 596]
+        },
         id: 3,
         important: false,
         title: false
@@ -55,39 +58,42 @@ Page({
           TitleList: res.data
 
         })
-      if(this.data.TitleList.identification==null){
-        for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
-          var important = "TitleList.data.items[" + i + "].important";
-          var title = "TitleList.data.items[" + i + "].title";
-          //index 用来标识每句话id
-          var index = "TitleList.data.items[" + i + "].index";
-          var identification = "TitleList.identification";
-          this.setData({
-            [important]: false,
-            [title]: false,
-            [index]: i,
-            [identification]: false
-          })
+        if (this.data.TitleList.identification == null) {
+          for (var i = 0; i < this.data.TitleList.data.items.length; i++) {
+            var important = "TitleList.data.items[" + i + "].important";
+            var title = "TitleList.data.items[" + i + "].title";
+            //index 用来标识每句话id
+            var index = "TitleList.data.items[" + i + "].index";
+            var identification = "TitleList.identification";
+            this.setData({
+              [important]: false,
+              [title]: false,
+              [index]: i,
+              [identification]: false
+            })
+          }
         }
-      }
-      
+
         console.log(this.data.TitleList);
       }
     })
-  
+
   },
 
-  save:function(){
-    
+/**
+ * 保存已编辑笔记
+ */
+  save: function() {
+
     db.collection('content').doc(this.data.TitleList._id).set({
       data: {
-        data:this.data.TitleList.data,
-      code:this.data.TitleList.code,
+        data: this.data.TitleList.data,
+        code: this.data.TitleList.code,
         message: this.data.TitleList.message,
-        identification:true
+        identification: true
 
       },
-       success(res) {
+      success(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res)
       },
@@ -163,49 +169,46 @@ Page({
       TitleList: update
     })
   },
-  editable: function () {
+  editable: function() {
     var k = this.data.Edit
     if (k == false) {
       this.setData({
         Edit: true
       });
-    }
-    else {
+    } else {
       this.setData({
         Edit: false
       });
     }
   },
   //标识是否为划重点状态
-  penable: function () {
+  penable: function() {
     var k = this.data.Pen
     if (k == false) {
       this.setData({
         Pen: true
       });
-    }
-    else {
+    } else {
       this.setData({
         Pen: false
       });
     }
   },
   //标识是否为画标题状态
-  titleable: function () {
+  titleable: function() {
     var k = this.data.Title
     if (k == false) {
       this.setData({
         Title: true
       });
-    }
-    else {
+    } else {
       this.setData({
         Title: false
       });
     }
   },
   //执行函数
-  draw: function (e) {
+  draw: function(e) {
     var P = this.data.Pen
     var T = this.data.Title
     var num = e.currentTarget.id
@@ -217,8 +220,7 @@ Page({
           console.log(update.data)
           if (update.data.items[i].title == true) {
             update.data.items[i].title = false
-          }
-          else {
+          } else {
             update.data.items[i].title = true
           }
         }
@@ -226,15 +228,13 @@ Page({
       this.setData({
         TitleList: update
       })
-    }
-    else if (P == true) {
+    } else if (P == true) {
       var update = this.data.TitleList
       for (let i in update.data.items) {
         if (i == num) {
           if (update.data.items[i].important == true) {
             update.data.items[i].important = false
-          }
-          else {
+          } else {
             update.data.items[i].important = true
           }
         }

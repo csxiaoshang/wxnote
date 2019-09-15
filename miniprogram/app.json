@@ -1,8 +1,6 @@
 {
   "pages": [
     "pages/pageBar/newTxt",
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/pageBar/history",
     "pages/note/noteedit",
     "pages/share/share"
